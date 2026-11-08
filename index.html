@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>KP Tom — teste de transposição (YouTube incorporado)</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { font: 14px/1.45 system-ui, sans-serif; margin: 0; background: #0b0f1a; color: #e2e8f0; }
+    main { max-width: 1100px; margin: 0 auto; padding: 16px; display: grid; gap: 14px; grid-template-columns: 1.4fr 1fr; }
+    @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+    h1 { font-size: 17px; margin: 0; grid-column: 1 / -1; }
+    .player { aspect-ratio: 16/9; background: #000; border-radius: 10px; overflow: hidden; }
+    .player iframe { width: 100%; height: 100%; }
+    .box { background: #121829; border: 1px solid #243049; border-radius: 10px; padding: 12px; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    button { background: #26324d; color: #fff; border: 0; border-radius: 8px; padding: 10px 14px; font-weight: 600; cursor: pointer; }
+    button:hover { background: #33426a; }
+    button.p { background: #c026d3; } button.p:hover { background: #d946ef; }
+    button:disabled { opacity: .4; cursor: not-allowed; }
+    #semi { font: 700 28px ui-monospace, monospace; min-width: 70px; text-align: center; }
+    .pill { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+    .ok { background: #14532d; color: #bbf7d0; } .warn { background: #713f12; color: #fde68a; } .bad { background: #7f1d1d; color: #fecaca; } .idle { background: #334155; }
+    dl { display: grid; grid-template-columns: 150px 1fr; gap: 3px 10px; margin: 0; font-size: 12.5px; }
+    dt { color: #94a3b8; } dd { margin: 0; word-break: break-all; }
+    pre { margin: 0; max-height: 220px; overflow: auto; font: 11.5px/1.5 ui-monospace, monospace; color: #cbd5e1; white-space: pre-wrap; }
+    input { flex: 1; min-width: 160px; background: #0b0f1a; color: #fff; border: 1px solid #243049; border-radius: 8px; padding: 9px; }
+    .big { font: 700 22px ui-monospace, monospace; }
+    #hint { font-size: 13px; }
+    table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+    td, th { border-bottom: 1px solid #243049; padding: 4px 6px; text-align: left; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>KP Tom · teste real de transposição em YouTube incorporado (player oficial + extensão)</h1>
+
+  <section style="display:grid;gap:12px">
+    <div class="player"><div id="yt"></div></div>
+    <div class="row">
+      <input id="vid" value="dQw4w9WgXcQ" aria-label="URL ou ID do vídeo" />
+      <button id="load">Trocar vídeo</button>
+      <button id="play" class="p">▶ Tocar</button>
+      <button id="pause">❚❚ Pausar</button>
+    </div>
+    <div class="box">
+      <div class="row" style="justify-content:space-between">
+        <strong>Tom</strong>
+        <span>pedido: <span id="semi">0</span></span>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button data-d="-3">−3</button>
+        <button data-d="-1" id="down">Tom −1</button>
+        <button id="reset" class="p">Restaurar</button>
+        <button data-d="1" id="up">Tom +1</button>
+        <button data-d="3">+3</button>
+        <button id="auto" style="margin-left:auto">Autoteste 0 → +3 → −3 → 0</button>
+      </div>
+      <p id="hint"></p>
+    </div>
+    <div class="box"><strong>Autoteste</strong><table id="results"><thead><tr><th>pedido</th><th>medido</th><th>correlação</th><th>rota</th><th>RMS entrada/saída</th><th>resultado</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section style="display:grid;gap:12px;align-content:start">
+    <div class="box">
+      <div class="row" style="justify-content:space-between">
+        <strong>Extensão</strong> <span id="ext" class="pill idle">aguardando player</span>
+      </div>
+      <div class="row" style="justify-content:space-between;margin-top:8px">
+        <strong>Processamento</strong> <span id="proc" class="pill idle">—</span>
+      </div>
+      <div style="margin-top:10px">deslocamento medido (entrada→saída): <span id="meas" class="big">—</span></div>
+    </div>
+    <div class="box"><dl id="diag"></dl></div>
+    <div class="box"><strong>Passos no iframe (relatados pela extensão)</strong><pre id="steps">—</pre></div>
+    <div class="box"><strong>Registro da página</strong><pre id="log"></pre></div>
+  </section>
+</main>
+<script src="test.js"></script>
+</body>
+</html>
